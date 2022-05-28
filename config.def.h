@@ -92,8 +92,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_g,      removescratch,  {.v = scratchpadcmd } },
 	{ MODKEY|ControlMask,           XK_g,      setscratch,     {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_Left,   focusdir,       {.i = 0 } }, // left
 	{ MODKEY,                       XK_Right,  focusdir,       {.i = 1 } }, // right
 	{ MODKEY,                       XK_Up,     focusdir,       {.i = 2 } }, // up
