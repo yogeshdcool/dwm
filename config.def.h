@@ -126,9 +126,9 @@ static Key keys[] = {
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn,     sh("light -U 1") },
 	{ MODKEY|ShiftMask,             XK_F2,     spawn,          sh("light -S 0") },
 	{ MODKEY|ShiftMask,             XK_F3,     spawn,          sh("light -S 6") },
-	{ MODKEY,                       XK_g,      togglescratch,  {.v = scratchpadcmd } },
-	{ MODKEY|ShiftMask,             XK_g,      removescratch,  {.v = scratchpadcmd } },
-	{ MODKEY|ControlMask,           XK_g,      setscratch,     {.v = scratchpadcmd } },
+	{ MODKEY|ShiftMask,                       XK_g,      togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY|ControlMask,             XK_g,      removescratch,  {.v = scratchpadcmd } },
+	{ MODKEY|Mod1Mask,           XK_g,      setscratch,     {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_Left,   focusdir,       {.i = 0 } }, // left
 	{ MODKEY,                       XK_Right,  focusdir,       {.i = 1 } }, // right
@@ -156,18 +156,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,                       XK_Return, zoom,           {0} },
 	{ MODKEY|Mod4Mask,              XK_u,      incrgaps,       {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_o,      incrogaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_o,      incrogaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_6,      incrihgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_6,      incrihgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_7,      incrivgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_7,      incrivgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_8,      incrohgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_9,      incrovgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
 	{ MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
@@ -187,7 +175,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_comma,  cyclelayout,    {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
-	{ MODKEY|ShiftMask,                       XK_r,     xrdb,           {.v = NULL } },
+	{ MODKEY|ShiftMask,             XK_r,     xrdb,           {.v = NULL } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
