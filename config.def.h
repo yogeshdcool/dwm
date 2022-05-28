@@ -97,7 +97,7 @@ static const Layout layouts[] = {
 static const char *termcmd[]  = { "alacritty", NULL };
 
 /*First arg only serves to match against key in rules*/
-static const char *scratchpadcmd[] = {"alacritty", "-t", "scratchpad", NULL};
+static const char *scratchpadcmd[] = {"s", "alacritty", "-t", "scratchpad", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -109,7 +109,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_e,      spawn,          sh(term " -e lf")},
 	{ MODKEY,                       XK_a,      spawn,          sh(term " -e htop")},
 	{ MODKEY,                       XK_g,      spawn,          sh(term " -e gotop")},
-	{ MODKEY,                       XK_r,      spawn,          sh(term " -e mocp")},
+	{ MODKEY,                       XK_r,      spawn,          sh(term " -e musikcube")},
     { 0,                            XK_Print,  spawn,          sh("flameshot gui")},
 	{ 0,                            XK_Insert, spawn,          sh("flameshot gui")},
 	{ MODKEY,                       XK_space,  spawn,          sh("~/.config/rofi/bin/launcher_colorful")},
