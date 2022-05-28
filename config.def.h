@@ -57,6 +57,7 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
+#include "shift-tools.c"
 #include <X11/XF86keysym.h>
 
 static const Layout layouts[] = {
@@ -140,6 +141,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+	{ MODKEY|ShiftMask,		XK_h,      shiftboth,      { .i = -1 }	},
+	{ MODKEY|ControlMask,		XK_h,      shiftswaptags,  { .i = -1 }	},
+	{ MODKEY|ControlMask,		XK_l,      shiftswaptags,  { .i = +1 }	},
+	{ MODKEY,                       XK_o, shiftviewclients,    { .i = +1 } },
+	{ MODKEY|ShiftMask,             XK_o,	shiftview,         { .i = +1 } },
+	{ MODKEY|ShiftMask,             XK_i,	shiftview,         { .i = -1 } },
+	{ MODKEY,	                XK_i, shiftviewclients,    { .i = -1 } },
+	{ MODKEY|ShiftMask,             XK_l,      shiftboth,      { .i = +1 }	},
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
 	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
