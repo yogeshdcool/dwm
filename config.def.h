@@ -17,10 +17,14 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
+static const char col_red[]         = "#FF0000";
+static const char col_orange[]      = "#FF8800";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeScratchSel]  = { col_gray4, col_cyan,  col_red  },
+	[SchemeScratchNorm] = { col_gray4, col_cyan,  col_orange },
 };
 
 /* tagging */
@@ -31,9 +35,10 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class      instance    title       tags mask     isfloating   monitor    scratch key */
+	{ "Gimp",     NULL,       NULL,       0,            1,           -1,        0  },
+	{ "firefox",  NULL,       NULL,       1 << 8,       0,           -1,        0  },
+	{ NULL,       NULL,   "scratchpad",   0,            1,           -1,       's' },
 };
 
 /* layout(s) */
@@ -77,9 +82,15 @@ static const Layout layouts[] = {
 /* commands */
 static const char *termcmd[]  = { "alacritty", NULL };
 
+/*First arg only serves to match against key in rules*/
+static const char *scratchpadcmd[] = {"s", "st", "-t", "scratchpad", NULL};
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,            		    XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_g,      togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY|ShiftMask,             XK_g,      removescratch,  {.v = scratchpadcmd } },
+	{ MODKEY|ControlMask,           XK_g,      setscratch,     {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
