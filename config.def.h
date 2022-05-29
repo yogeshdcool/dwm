@@ -19,21 +19,19 @@ static char normfgcolor[]           = "#bbbbbb";
 static char selfgcolor[]            = "#eeeeee";
 static char selbordercolor[]        = "#005577";
 static char selbgcolor[]            = "#005577";
-static char col_urgborder[]   = "#ff0000";
-static char col_red[]         = "#FF0000";
-static char col_orange[]      = "#FF8800";
+static char urgborder[]   = "#ff0000";
 static char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
 	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
-	[SchemeUrg]  = { selfgcolor, selbgcolor,  col_urgborder  },
+	[SchemeUrg]  = { selfgcolor,  selbgcolor,  urgborder  },
 	[SchemeStatus]  = { normfgcolor, normbgcolor,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
 	[SchemeTagsSel]  = { selfgcolor, selbgcolor,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
     [SchemeTagsNorm]  = { normfgcolor, normbgcolor,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
     [SchemeInfoSel]  = { selfgcolor, normbgcolor,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
     [SchemeInfoNorm]  = { normfgcolor, normbgcolor,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
-	[SchemeScratchSel]  = { selfgcolor, selbgcolor,  col_red  },
-	[SchemeScratchNorm] = { selfgcolor, selbgcolor,  col_orange },
+	[SchemeScratchNorm] = { selfgcolor, selbgcolor,  normbordercolor },
+	[SchemeScratchSel]  = { selfgcolor, selbgcolor,  selbordercolor  },
 };
 
 /* tagging */
