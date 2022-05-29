@@ -88,7 +88,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define sh(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define sh(cmd) { .v = (const char*[]){ "/bin/bash", "-c","-i", cmd, NULL } }
 #define term "alacritty"
 
 #define STATUSBAR "dwmblocks"
@@ -121,40 +121,43 @@ static Key keys[] = {
 	{ MODKEY,             			XK_F4,     spawn,          sh("killall xinit") },
 	{ MODKEY,             			XK_F5,     spawn,          sh("systemctl reboot") },
 	{ MODKEY, 		    			XK_F6,     spawn,          sh("betterlockscreen -l dimblur") },
+	{ 0,                            XF86XK_AudioRaiseVolume,   spawn,     sh("pamixer -i 5") },
+	{ 0,                            XF86XK_AudioLowerVolume,   spawn,     sh("pamixer -d 5") },
+	{ 0,                            XF86XK_AudioMute,      	   spawn,     sh("pamixer -t") },
 	{ MODKEY,             			XF86XK_RFKill,spawn,       sh("wifi toggle") },
 	{ 0,                            XF86XK_MonBrightnessUp,    spawn,     sh("light -A 1") },
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn,     sh("light -U 1") },
 	{ MODKEY|ShiftMask,             XK_F2,     spawn,          sh("light -S 0") },
 	{ MODKEY|ShiftMask,             XK_F3,     spawn,          sh("light -S 6") },
-	{ MODKEY,                       XK_grave,      togglescratch,  {.v = scratchpadcmd } },
-	{ MODKEY|ShiftMask,                       XK_g,      togglescratch,  {.v = scratchpadcmd } },
-	{ MODKEY|ControlMask,             XK_g,      removescratch,  {.v = scratchpadcmd } },
-	{ MODKEY|Mod1Mask,           XK_g,      setscratch,     {.v = scratchpadcmd } },
+	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY|ShiftMask,             XK_g,      togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY|ControlMask,           XK_g,      removescratch,  {.v = scratchpadcmd } },
+	{ MODKEY|Mod1Mask,              XK_g,      setscratch,     {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_l,   focusdir,       {.i = 0 } }, // left
-	{ MODKEY,                       XK_h,  focusdir,       {.i = 1 } }, // right
-	{ MODKEY,                       XK_k,     focusdir,       {.i = 2 } }, // up
-	{ MODKEY,                       XK_j,   focusdir,       {.i = 3 } }, // down
-	{ MODKEY|ControlMask,           XK_h,   placedir,       {.i = 0 } }, // left
-	{ MODKEY|ControlMask,           XK_l,  placedir,       {.i = 1 } }, // right
-	{ MODKEY|ControlMask,           XK_k,     placedir,       {.i = 2 } }, // up
-	{ MODKEY|ControlMask,           XK_j,   placedir,       {.i = 3 } }, // down
+	{ MODKEY,                       XK_l,      focusdir,       {.i = 0 } }, // left
+	{ MODKEY,                       XK_h,      focusdir,       {.i = 1 } }, // right
+	{ MODKEY,                       XK_k,      focusdir,       {.i = 2 } }, // up
+	{ MODKEY,                       XK_j,      focusdir,       {.i = 3 } }, // down
+	{ MODKEY|ControlMask,           XK_h,      placedir,       {.i = 0 } }, // left
+	{ MODKEY|ControlMask,           XK_l,  	   placedir,       {.i = 1 } }, // right
+	{ MODKEY|ControlMask,           XK_k,      placedir,       {.i = 2 } }, // up
+	{ MODKEY|ControlMask,           XK_j,      placedir,       {.i = 3 } }, // down
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY|ShiftMask,		XK_bracketleft,      shiftboth,      { .i = -1 }	},
-	{ MODKEY|ShiftMask,             XK_bracketright,      shiftboth,      { .i = +1 }	},
-	{ MODKEY|ControlMask,		XK_bracketleft,      shiftswaptags,  { .i = -1 }	},
-	{ MODKEY|ControlMask,		XK_bracketright,      shiftswaptags,  { .i = +1 }	},
-	{ MODKEY,                       XK_bracketleft, shiftviewclients,    { .i = -1 } },
-	{ MODKEY,                       XK_bracketright, shiftviewclients,    { .i = +1 } },
-	{ MODKEY|Mod1Mask,             XK_bracketleft,	shiftview,         { .i = -1 } },
-	{ MODKEY|Mod1Mask,             XK_bracketright,	shiftview,         { .i = +1 } },
-	{ MODKEY|ShiftMask,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY|ShiftMask,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|Mod1Mask,             XK_h,      setcfact,       {.f = +0.25} },
-	{ MODKEY|Mod1Mask,             XK_l,      setcfact,       {.f = -0.25} },
-	{ MODKEY|Mod1Mask,             XK_plus,      setcfact,       {.f =  0.00} },
-	{ MODKEY|ShiftMask,                       XK_Return, zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,		        XK_bracketleft,       shiftboth,       { .i = -1 } },
+	{ MODKEY|ShiftMask,             XK_bracketright,      shiftboth,       { .i = +1 } },
+	{ MODKEY|ControlMask,		    XK_bracketleft,       shiftswaptags,   { .i = -1 } },
+	{ MODKEY|ControlMask,		    XK_bracketright,      shiftswaptags,   { .i = +1 } },
+	{ MODKEY,                       XK_bracketleft, 	  shiftviewclients,{ .i = -1 } },
+	{ MODKEY,                       XK_bracketright, 	  shiftviewclients,{ .i = +1 } },
+	{ MODKEY|Mod1Mask,              XK_bracketleft,		  shiftview,       { .i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_bracketright,	  shiftview,       { .i = +1 } },
+	{ MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = -0.05} },
+	{ MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY|Mod1Mask,              XK_h,      setcfact,       {.f = +0.25} },
+	{ MODKEY|Mod1Mask,              XK_l,      setcfact,       {.f = -0.25} },
+	{ MODKEY|Mod1Mask,              XK_plus,   setcfact,       {.f =  0.00} },
+	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,              			XK_equal,  incrgaps,       {.i = +1 } },
 	{ MODKEY,              			XK_minus,  incrgaps,       {.i = -1 } },
 	{ MODKEY|ShiftMask,    			XK_minus,  togglegaps,     {0} },
@@ -168,15 +171,15 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_f,      togglefullscreen, {0} },
 	{ MODKEY|ShiftMask,             XK_f,      togglefakefullscreen, {0} },
-	{ MODKEY,                       XK_0,      tag,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      view,            {.ui = ~0 } },
+	{ MODKEY,                       XK_0,      tag,            {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      view,           {.ui = ~0 } },
 	// { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	// { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	// { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	// { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,           XK_comma,  cyclelayout,    {.i = -1 } },
-	{ MODKEY,           XK_period, cyclelayout,    {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_r,     xrdb,           {.v = NULL } },
+	{ MODKEY,           			XK_comma,  cyclelayout,    {.i = -1 } },
+	{ MODKEY,           			XK_period, cyclelayout,    {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_r,      xrdb,           {.v = NULL } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
