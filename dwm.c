@@ -324,9 +324,6 @@ struct Pertag {
 	unsigned int sellts[LENGTH(tags) + 1]; /* selected layouts */
 	const Layout *ltidxs[LENGTH(tags) + 1][2]; /* matrix of tags and layouts indexes  */
 	Bool showbars[LENGTH(tags) + 1]; /* display bar for the current tag */
-	#if ZOOMSWAP_PATCH
-	Client *prevzooms[LENGTH(tags) + 1]; /* store zoom information */
-	#endif // ZOOMSWAP_PATCH
 };
 
 /* compile-time check if all tags fit into an unsigned int bit array. */
@@ -765,9 +762,6 @@ createmon(void)
 		/* init showbar */
 		m->pertag->showbars[i] = m->showbar;
 
-		#if ZOOMSWAP_PATCH
-		m->pertag->prevzooms[i] = NULL;
-		#endif // ZOOMSWAP_PATCH
 	}
 	return m;
 }

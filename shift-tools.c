@@ -52,32 +52,57 @@ shiftview(const Arg *arg)
 		shifted.ui = (shifted.ui >> (- arg->i) | shifted.ui << (LENGTH(tags) + arg->i));
 	view(&shifted);
 }
-/* Navigate to the next/prev tag that has a client, else moves it to the next/prev tag */
+// /* Navigate to the next/prev tag that has a client, else moves it to the next/prev tag */
+// void
+// shiftviewclients(const Arg *arg)
+// {
+// 	Arg shifted;
+// 	Client *c;
+// 	unsigned int tagmask = 0;
+// 	shifted.ui = selmon->tagset[selmon->seltags];
+
+// 	for (c = selmon->clients; c; c = c->next)
+// 		if (!(c->tags))
+// 			tagmask = tagmask | c->tags;
+
+
+// 	if (arg->i > 0)	/* left circular shift */
+// 		do {
+// 			shifted.ui = (shifted.ui << arg->i)
+// 			   | (shifted.ui >> (LENGTH(tags) - arg->i));
+// 		} while (tagmask && !(shifted.ui & tagmask));
+// 	else		/* right circular shift */
+// 		do {
+// 			shifted.ui = (shifted.ui >> (- arg->i)
+// 			   | shifted.ui << (LENGTH(tags) + arg->i));
+// 		} while (tagmask && !(shifted.ui & tagmask));
+// 	view(&shifted);
+// }
 void
 shiftviewclients(const Arg *arg)
 {
 	Arg shifted;
 	Client *c;
 	unsigned int tagmask = 0;
-	shifted.ui = selmon->tagset[selmon->seltags];
 
 	for (c = selmon->clients; c; c = c->next)
-		if (!(c->tags))
-			tagmask = tagmask | c->tags;
+		tagmask = tagmask | c->tags;
 
-
-	if (arg->i > 0)	/* left circular shift */
+	shifted.ui = selmon->tagset[selmon->seltags];
+	if (arg->i > 0) // left circular shift
 		do {
 			shifted.ui = (shifted.ui << arg->i)
 			   | (shifted.ui >> (LENGTH(tags) - arg->i));
 		} while (tagmask && !(shifted.ui & tagmask));
-	else		/* right circular shift */
+	else // right circular shift
 		do {
 			shifted.ui = (shifted.ui >> (- arg->i)
 			   | shifted.ui << (LENGTH(tags) + arg->i));
 		} while (tagmask && !(shifted.ui & tagmask));
+
 	view(&shifted);
 }
+
 /* move the current active window to the next/prev tag and view it. More like following the window */
 void
 shiftboth(const Arg *arg)
