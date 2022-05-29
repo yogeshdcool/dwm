@@ -188,7 +188,6 @@ static void cyclelayout(const Arg *arg);
 static void destroynotify(XEvent *e);
 static void detach(Client *c);
 static void detachstack(Client *c);
-static Monitor *dirtomon(int dir);
 static void drawbar(Monitor *m);
 static void drawbars(void);
 static int drawstatusbar(Monitor *m, int bh, char* text);
@@ -198,7 +197,6 @@ static Client *findbefore(Client *c);
 static void focus(Client *c);
 static void focusdir(const Arg *arg);
 static void focusin(XEvent *e);
-static void focusmon(const Arg *arg);
 static Atom getatomprop(Client *c, Atom prop);
 static int getrootptr(int *x, int *y);
 static long getstate(Window w);
@@ -246,7 +244,6 @@ static void sigstatusbar(const Arg *arg);
 static void spawn(const Arg *arg);
 static void spawnscratch(const Arg *arg);
 static void tag(const Arg *arg);
-static void tagmon(const Arg *arg);
 static void togglebar(const Arg *arg);
 static void togglefakefullscreen(const Arg *arg);
 static void togglefloating(const Arg *arg);
@@ -816,21 +813,6 @@ detachstack(Client *c)
 	}
 }
 
-Monitor *
-dirtomon(int dir)
-{
-	Monitor *m = NULL;
-
-	if (dir > 0) {
-		if (!(m = selmon->next))
-			m = mons;
-	} else if (selmon == mons)
-		for (m = mons; m->next; m = m->next);
-	else
-		for (m = mons; m->next != selmon; m = m->next);
-	return m;
-}
-
 int
 drawstatusbar(Monitor *m, int bh, char* stext) {
 	int ret, i, j, w, x, len;
@@ -1148,20 +1130,6 @@ focusin(XEvent *e)
 
 	if (selmon->sel && ev->window != selmon->sel->win)
 		setfocus(selmon->sel);
-}
-
-void
-focusmon(const Arg *arg)
-{
-	Monitor *m;
-
-	if (!mons->next)
-		return;
-	if ((m = dirtomon(arg->i)) == selmon)
-		return;
-	unfocus(selmon->sel, 0);
-	selmon = m;
-	focus(NULL);
 }
 
 Atom
@@ -2274,24 +2242,6 @@ tag(const Arg *arg)
 		if(viewontag && ((arg->ui & TAGMASK) != TAGMASK))
 			view(arg);
 	}
-}
-
-void
-tagmon(const Arg *arg)
-{
-	Client *c = selmon->sel;
-	if (!c || !mons->next)
-		return;
-	if (c->isfullscreen) {
-		c->isfullscreen = 0;
-		sendmon(c, dirtomon(arg->i));
-		c->isfullscreen = 1;
-		if (c->fakefullscreen != 1) {
-			resizeclient(c, c->mon->mx, c->mon->my, c->mon->mw, c->mon->mh);
-			XRaiseWindow(dpy, c->win);
-		}
-	} else
-		sendmon(c, dirtomon(arg->i));
 }
 
 void
