@@ -47,7 +47,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     iscentered   isfloating   monitor   scratch key*/
 	{ "Gimp",     NULL,       NULL,       0,            0,           1,           -1,		0 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           0,           -1,		0 },
-	{ NULL,       NULL,   "scratchpad",   0,            0,			 1,           -1,       's' },
+	{ NULL,       NULL,   "scratchpad",   0,            1,			 1,           -1,       's' },
 };
 
 /* layout(s) */
@@ -126,38 +126,39 @@ static Key keys[] = {
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn,     sh("light -U 1") },
 	{ MODKEY|ShiftMask,             XK_F2,     spawn,          sh("light -S 0") },
 	{ MODKEY|ShiftMask,             XK_F3,     spawn,          sh("light -S 6") },
+	{ MODKEY,                       XK_grave,      togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY|ShiftMask,                       XK_g,      togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY|ControlMask,             XK_g,      removescratch,  {.v = scratchpadcmd } },
 	{ MODKEY|Mod1Mask,           XK_g,      setscratch,     {.v = scratchpadcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_Left,   focusdir,       {.i = 0 } }, // left
-	{ MODKEY,                       XK_Right,  focusdir,       {.i = 1 } }, // right
-	{ MODKEY,                       XK_Up,     focusdir,       {.i = 2 } }, // up
-	{ MODKEY,                       XK_Down,   focusdir,       {.i = 3 } }, // down
-	{ MODKEY|ControlMask,           XK_Left,   placedir,       {.i = 0 } }, // left
-	{ MODKEY|ControlMask,           XK_Right,  placedir,       {.i = 1 } }, // right
-	{ MODKEY|ControlMask,           XK_Up,     placedir,       {.i = 2 } }, // up
-	{ MODKEY|ControlMask,           XK_Down,   placedir,       {.i = 3 } }, // down
+	{ MODKEY,                       XK_l,   focusdir,       {.i = 0 } }, // left
+	{ MODKEY,                       XK_h,  focusdir,       {.i = 1 } }, // right
+	{ MODKEY,                       XK_k,     focusdir,       {.i = 2 } }, // up
+	{ MODKEY,                       XK_j,   focusdir,       {.i = 3 } }, // down
+	{ MODKEY|ShiftMask,           XK_h,   placedir,       {.i = 0 } }, // left
+	{ MODKEY|ShiftMask,           XK_l,  placedir,       {.i = 1 } }, // right
+	{ MODKEY|ShiftMask,           XK_k,     placedir,       {.i = 2 } }, // up
+	{ MODKEY|ShiftMask,           XK_j,   placedir,       {.i = 3 } }, // down
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY|ShiftMask,		XK_h,      shiftboth,      { .i = -1 }	},
-	{ MODKEY|ControlMask,		XK_h,      shiftswaptags,  { .i = -1 }	},
-	{ MODKEY|ControlMask,		XK_l,      shiftswaptags,  { .i = +1 }	},
-	{ MODKEY,                       XK_o, shiftviewclients,    { .i = +1 } },
-	{ MODKEY|ShiftMask,             XK_o,	shiftview,         { .i = +1 } },
-	{ MODKEY|ShiftMask,             XK_i,	shiftview,         { .i = -1 } },
-	{ MODKEY,	                XK_i, shiftviewclients,    { .i = -1 } },
-	{ MODKEY|ShiftMask,             XK_l,      shiftboth,      { .i = +1 }	},
+	{ MODKEY|ShiftMask,		XK_bracketleft,      shiftboth,      { .i = -1 }	},
+	{ MODKEY|ShiftMask,             XK_bracketright,      shiftboth,      { .i = +1 }	},
+	{ MODKEY|ControlMask,		XK_bracketleft,      shiftswaptags,  { .i = -1 }	},
+	{ MODKEY|ControlMask,		XK_bracketright,      shiftswaptags,  { .i = +1 }	},
+	{ MODKEY|Mod1Mask,                       XK_bracketleft, shiftviewclients,    { .i = -1 } },
+	{ MODKEY|Mod1Mask,                       XK_bracketright, shiftviewclients,    { .i = +1 } },
+	{ MODKEY,             XK_bracketleft,	shiftview,         { .i = -1 } },
+	{ MODKEY,             XK_bracketright,	shiftview,         { .i = +1 } },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
 	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
 	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
 	{ MODKEY|ShiftMask,                       XK_Return, zoom,           {0} },
-	{ MODKEY|Mod4Mask,              XK_u,      incrgaps,       {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
+	{ MODKEY,              			XK_equal,  incrgaps,       {.i = +1 } },
+	{ MODKEY,              			XK_minus,  incrgaps,       {.i = -1 } },
+	{ MODKEY|ShiftMask,    			XK_minus,  togglegaps,     {0} },
+	{ MODKEY|ShiftMask,             XK_equal,  defaultgaps,    {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY, 	  	                XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
@@ -200,10 +201,11 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkClientWin,         MODKEY|ShiftMask,Button1,       resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
+
 
