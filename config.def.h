@@ -88,7 +88,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define sh(cmd) { .v = (const char*[]){ "/bin/bash", "-c","-i", cmd, NULL } }
+#define sh(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 #define term "alacritty"
 
 #define STATUSBAR "dwmblocks"
@@ -123,9 +123,9 @@ static Key keys[] = {
 	{ MODKEY,             			XK_F4,     spawn,          sh("killall xinit") },
 	{ MODKEY,             			XK_F5,     spawn,          sh("systemctl reboot") },
 	{ MODKEY, 		    			XK_F6,     spawn,          sh("betterlockscreen -l dimblur") },
-	{ 0,                            XF86XK_AudioRaiseVolume,   spawn,     sh("pamixer -i 5") },
-	{ 0,                            XF86XK_AudioLowerVolume,   spawn,     sh("pamixer -d 5") },
-	{ 0,                            XF86XK_AudioMute,      	   spawn,     sh("pamixer -t") },
+	{ 0,                            XF86XK_AudioRaiseVolume,   spawn,     sh("pamixer -i 5 && kill -35 $(pidof dwmblocks)") },
+	{ 0,                            XF86XK_AudioLowerVolume,   spawn,     sh("pamixer -d 5 && kill -35 $(pidof dwmblocks)") },
+	{ 0,                            XF86XK_AudioMute,      	   spawn,     sh("pamixer -t && kill -35 $(pidof dwmblocks)") },
 	{ MODKEY,             			XF86XK_RFKill,spawn,       sh("wifi toggle") },
 	{ 0,                            XF86XK_MonBrightnessUp,    spawn,     sh("light -A 1") },
 	{ 0,                            XF86XK_MonBrightnessDown,  spawn,     sh("light -U 1") },
